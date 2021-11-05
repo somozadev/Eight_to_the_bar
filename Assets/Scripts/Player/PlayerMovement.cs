@@ -7,22 +7,25 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] Transform rotation;
+    public Transform rotation;
     [SerializeField] Rigidbody rb;
     [SerializeField] Vector3 movement_input;
     private Vector2 movement_input_raw;
     [Space]
-   [SerializeField] bool isMoving;
-    [Space]
     [SerializeField] float speed;
-    [SerializeField] float jump_force;
+    [SerializeField] bool isMoving;
+    [Space]
+    [SerializeField] bool isRunning;
 
 
     void FixedUpdate()
     {
-        if (isMoving){
+        if (isMoving)
+        {
             MovePlayer();
-            RotatePlayer();}
+            RotatePlayer();
+            RunPlayer();
+        }
 
     }
     private void MovePlayer()
@@ -34,17 +37,29 @@ public class PlayerMovement : MonoBehaviour
     {
         rotation.transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
-
-
-    private void Jump()
+    public void RotateToLookAt(Transform looker)
     {
-        rb.AddForce(Vector3.up * jump_force, ForceMode.Impulse);
+        Vector3 thisPos = new Vector3(rotation.position.x, 0, rotation.position.z);
+        Vector3 otherPos = new Vector3(looker.position.x, 0, looker.position.z);
+        rotation.rotation = Quaternion.LookRotation(-(thisPos - otherPos));
     }
-
+    private void RunPlayer()
+    {
+        if (isRunning)
+            speed = 8f;
+        else
+            speed = 6f;
+    }
     private void OnMovement(InputValue value)
     {
         movement_input_raw = value.Get<Vector2>();
         isMoving = movement_input_raw == Vector2.zero ? false : true;
         movement_input = new Vector3(movement_input_raw.x, 0f, movement_input_raw.y);
     }
+    private void OnRunning(InputValue value)
+    {
+        isRunning = System.Convert.ToBoolean(value.Get<float>());
+    }
+
+
 }

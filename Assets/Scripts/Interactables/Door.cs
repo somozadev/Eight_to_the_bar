@@ -4,21 +4,15 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
+    public void EndInteract()
+    {
+        Debug.Log("STOP INTERACTING WITH DOOR");
+    }
 
     public void Interact()
     {
-        Debug.Log("INTERACTING ACTIVATED");
+        Debug.Log("INTERACTING WITH DOOR");
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
