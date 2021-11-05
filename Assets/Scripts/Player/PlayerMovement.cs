@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,33 +7,37 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] Transform rotation;
     [SerializeField] Rigidbody rb;
     [SerializeField] Vector3 movement_input;
     private Vector2 movement_input_raw;
-    [SerializeField] Vector2 mouse_input;
     [Space]
-    [SerializeField] bool isMoving;
+   [SerializeField] bool isMoving;
     [Space]
     [SerializeField] float speed;
-    [SerializeField] float sensitivity;
     [SerializeField] float jump_force;
 
 
     void FixedUpdate()
     {
-        if (isMoving)
+        if (isMoving){
             MovePlayer();
+            RotatePlayer();}
+
     }
     private void MovePlayer()
     {
-        // if (movement_input_raw.magnitude > 0.2f)
-        // {ASASASASASASASASASAS
-            Vector3 moveVector = transform.TransformDirection(movement_input) * speed;
-            rb.velocity = new Vector3(moveVector.x, rb.velocity.y, moveVector.z);
+        Vector3 moveVector = transform.TransformDirection(movement_input) * speed;
+        rb.velocity = new Vector3(moveVector.x, rb.velocity.y, moveVector.z);
     }
+    private void RotatePlayer()
+    {
+        rotation.transform.rotation = Quaternion.LookRotation(rb.velocity);
+    }
+
+
     private void Jump()
     {
-
         rb.AddForce(Vector3.up * jump_force, ForceMode.Impulse);
     }
 

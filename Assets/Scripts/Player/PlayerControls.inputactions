@@ -15,7 +15,7 @@
                 },
                 {
                     "name": "Interactor",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "2b7cab1e-ff56-44ec-b20c-80521a54568f",
                     "expectedControlType": "Button",
                     "processors": "",
