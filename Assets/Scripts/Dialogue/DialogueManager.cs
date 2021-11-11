@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public void StartDialogue()
     {
         GameManager.Instance.cameraMovement.MoveCameraToChat();

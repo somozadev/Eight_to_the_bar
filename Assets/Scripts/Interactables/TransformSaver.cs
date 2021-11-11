@@ -1,10 +1,4 @@
 ﻿using UnityEngine;
-
-[System.Serializable]
-public static class Utils
-{
-
-}
 [System.Serializable]
 public class TransformSaver
 {
